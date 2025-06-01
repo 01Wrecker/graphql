@@ -276,7 +276,7 @@ function skillCard(skills) {
 }
 function expinfo(exp) {
     let div = Div("expinfo");
-    div.add("Your XP: " + exp);
+    div.add("Your XP: " + exp + " KB");
     body.add(div);
 }
 function picprofile(login) {
