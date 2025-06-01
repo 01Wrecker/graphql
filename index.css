@@ -1,0 +1,231 @@
+body {
+    background-color: #5a4022a4;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.loginDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.username,
+.password,
+.loginButton {
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    border-radius: 9px;
+    border: 2px solid #D82424;
+    padding-left: 10px;
+}
+
+.loginButton:hover {
+    width: 100%;
+    max-width: 310px;
+    height: 45px;
+}
+
+.no-audit {
+    color: #fff;
+    background: #D82424;
+    border-radius: 8px;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(216, 36, 36, 0.2);
+}
+
+.expinfo {
+    background-color: #746060;
+    width: 90%;
+    max-width: 300px;
+    margin: 30px auto;
+    border-radius: 9px;
+    border: 2px solid #D82424;
+    padding: 15px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.logo,
+.logout {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top: 10px;
+}
+
+.logo {
+    left: 10px;
+}
+
+.logout {
+    right: 10px;
+}
+
+.logout:hover {
+    width: 90px;
+    height: 90px;
+}
+
+.audit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-radius: 12px;
+    font-size: large;
+    background: #dad6d6;
+    width: 90%;
+    max-width: 300px;
+    padding: 20px;
+    margin: 30px auto;
+}
+
+.audiRatioCard {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    width: 90%;
+    max-width: 400px;
+    padding: 20px;
+    border-radius: 12px;
+    font-family: "Segoe UI", sans-serif;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    margin: 20px auto;
+}
+
+.texts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.smalltext {
+    font-size: 14px;
+    color: #b0b0b0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.Bigtext {
+    font-size: 36px;
+    font-weight: bold;
+    color: #fbc02d;
+}
+
+.Bigtext::after {
+    content: " You can do better!";
+    font-size: 14px;
+    display: block;
+    color: #fbc02d;
+    font-weight: 400;
+    margin-top: -10px;
+}
+
+.graphTexts {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.xp {
+    color: #fbc02d;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.name {
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.hello,
+.picprofile,
+.auditRatio,
+.info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    gap: 10px;
+    border: 1px solid #B52424;
+    background: #746060;
+    height: 45px;
+    padding: 0 20px;
+    border-radius: 999px;
+    margin: 20px auto;
+    width: fit-content;
+}
+
+.auditRatio {
+    background: #ffffff;
+}
+
+.skillsholder {
+    background-color: #746060;
+    padding: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+}
+
+.tooltip {
+    position: absolute;
+    background: #333;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+}
+.user-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background: #2d2d2d;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    width: 90%;
+    max-width: 350px;
+    margin: 20px auto;
+    font-size: 1rem;
+}
+/* 📱 Mobile-First Responsive Design */
+@media (min-width: 768px) {
+    .audit {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
+    .hello,
+    .picprofile,
+    .auditRatio,
+    .info {
+        font-size: 1.2rem;
+    }
+
+    .loginDiv {
+        flex-direction: column;
+    }
+}
