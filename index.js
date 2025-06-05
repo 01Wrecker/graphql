@@ -269,16 +269,17 @@ function skillCard(skills) {
             tooltip.style.top = (e.clientY) + "px";
             tooltip.style.left = (e.clientX) + "px";
             tooltip.setAttribute("ishover", "true");
-            body.add(tooltip);
+            placeholder.add(tooltip);
         });
-        rectan.addEventListener("mouseleave", function () {
+          rectan.addEventListener("mouseleave", function () {
             const tooltip = document.querySelector("[ishover]");
             if (tooltip) tooltip.remove();
         });
 
         svg.append(rectan);
     });
-
+    placeholder.style.width = svg.getAttribute("width") + "px";
+    placeholder.style.height = svg.getAttribute("height"+ "px")
     placeholder.append(svg);
     body.add(placeholder);
 }
@@ -325,11 +326,13 @@ async function auditGraph(auditRatio, done, received, cardsContainer) {
             )
         )
     )
+
     cardsContainer.append(auditRatioCard);
 
 }
 function rect(x, y, width, height, rx, ry, fill) {
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("viewBox", "0 0 100 100")
     rect.setAttribute("x", x);
     rect.setAttribute("y", y);
     rect.setAttribute("width", width);

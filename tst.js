@@ -20,7 +20,7 @@ function skillCard(skills) {
         rectan.addEventListener("mouseenter", function (e) {
             let tooltip = Div("tooltip");
             tooltip.textContent = skill.type + " " + skill.amount + "%";
-            tooltip.style.top = e.clientY + "px";
+            tooltip.style.top = e.clientY +"300"+ "px";
             tooltip.style.left = e.clientX + "px";
             tooltip.setAttribute("ishover", "true");
             document.body.appendChild(tooltip);
