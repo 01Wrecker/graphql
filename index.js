@@ -325,6 +325,13 @@ async function auditGraph(auditRatio, done, received, cardsContainer) {
             )
         )
     )
+
+
+
+
+
+
+    
     cardsContainer.append(auditRatioCard);
 
 }
