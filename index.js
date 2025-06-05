@@ -266,8 +266,8 @@ function skillCard(skills) {
         rectan.addEventListener("mouseenter", function (e) {
             let tooltip = Div("tooltip")
             tooltip.textContent = skill.type + " " + skill.amount + "%";
-            tooltip.style.top = (e.clientY) + "px";
-            tooltip.style.left = (e.clientX) + "px";
+            tooltip.style.top = (e.target.getBoundingClientRect().top - 30 + window.scrollY) + "px";
+            tooltip.style.left = (e.target.getBoundingClientRect().left + window.scrollX) + "px";
             tooltip.setAttribute("ishover", "true");
             placeholder.add(tooltip);
         });
