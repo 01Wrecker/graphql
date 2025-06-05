@@ -249,40 +249,70 @@ function info(userdata) {
 }
 function skillCard(skills) {
     console.log(skills);
+    if (!skills || !skills.length) return;
+
     let svgHeight = skills.length * 20;
+    let svgWidth = skills.length * 30 + 30;
 
-
+    // Create SVG element
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("height", skills.length * 20);
-    svg.setAttribute("width", skills.length * 30 + 30);
+    svg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svg.style.width = "100%";     // Responsive width
+    svg.style.height = "auto";    // Let height adjust
+    svg.style.display = "block";
+    svg.style.margin = "0 auto";
+
+    // Create placeholder
     let placeholder = Div("skillsholder");
+    placeholder.style.width = "100%";
+    placeholder.style.overflowX = "auto";
+    placeholder.style.boxSizing = "border-box";
+    placeholder.style.padding = "10px 0";
+
+    // Sort and draw bars
     let count = 0;
     skills.sort((a, b) => a.amount - b.amount);
     skills.forEach(skill => {
         let xPos = count += 30;
         let barHeight = skill.amount * 2.5;
         let yPos = svgHeight - barHeight;
+
         let rectan = rect(xPos, yPos, 16, barHeight, 10, 10, "#fbc02d");
+
         rectan.addEventListener("mouseenter", function (e) {
-            let tooltip = Div("tooltip")
+            let tooltip = Div("tooltip");
             tooltip.textContent = skill.type + " " + skill.amount + "%";
-            tooltip.style.top = (e.target.getBoundingClientRect().top - 30 + window.scrollY) + "px";
-            tooltip.style.left = (e.target.getBoundingClientRect().left + window.scrollX) + "px";
+            tooltip.style.position = "absolute";
+            tooltip.style.background = "#222";
+            tooltip.style.color = "#fff";
+            tooltip.style.padding = "4px 8px";
+            tooltip.style.borderRadius = "4px";
+            tooltip.style.fontSize = "12px";
+            tooltip.style.pointerEvents = "none";
+            tooltip.style.zIndex = 1000;
             tooltip.setAttribute("ishover", "true");
-            placeholder.add(tooltip);
+
+            const rect = e.target.getBoundingClientRect();
+            tooltip.style.top = (rect.top - 30 + window.scrollY) + "px";
+            tooltip.style.left = (rect.left + window.scrollX) + "px";
+
+            document.body.appendChild(tooltip);
         });
-          rectan.addEventListener("mouseleave", function () {
+
+        rectan.addEventListener("mouseleave", function () {
             const tooltip = document.querySelector("[ishover]");
             if (tooltip) tooltip.remove();
         });
 
         svg.append(rectan);
     });
-    placeholder.style.width = svg.getAttribute("width") + "px";
-    placeholder.style.height = svg.getAttribute("height"+ "px")
+
+    // Add and display
     placeholder.append(svg);
     body.add(placeholder);
 }
+
 function expinfo(exp) {
     let div = Div("expinfo");
     div.add("Your XP: " + exp);
@@ -300,20 +330,31 @@ function picprofile(login) {
     return img;
 }
 async function auditGraph(auditRatio, done, received, cardsContainer) {
+    const total = done + received;
+    const svgWidth = 200;
+    const svgHeight = 70;
+    const donLen = (done / total) * svgWidth;
+    const recLen = (received / total) * svgWidth;
+
+    // Create responsive SVG
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("height", "70px");
-    svg.setAttribute("width", "200px");
-    let total = done + received
-    let donLen = done / total * 200
-    let recLen = received / total * 200
-    let rectan = rect(0, 0, donLen, 16, 10, 10, "#fbc02d")
-    let rectan2 = rect(0, 40, recLen, 16, 10, 10, "white")
+    svg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+    svg.style.width = "100%";
+    svg.style.height = "auto";
+    svg.style.display = "block";
+
+    // Draw rectangles
+    let rectan = rect(0, 0, donLen, 16, 10, 10, "#fbc02d");
+    let rectan2 = rect(0, 40, recLen, 16, 10, 10, "white");
     svg.append(rectan, rectan2);
 
+    // Create audit card
     let auditRatioCard = Div("audiRatioCard").add(
         Div("texts").add(
             Div("smalltext", "audit Ratio"),
-            Div("Bigtext", auditRatio)),
+            Div("Bigtext", auditRatio)
+        ),
         Div("graphTexts").add(
             Div("graph").add(svg),
             Div("nn").add(
@@ -325,11 +366,11 @@ async function auditGraph(auditRatio, done, received, cardsContainer) {
                 )
             )
         )
-    )
+    );
 
     cardsContainer.append(auditRatioCard);
-
 }
+
 function rect(x, y, width, height, rx, ry, fill) {
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
     rect.setAttribute("viewBox", "0 0 100 100")
