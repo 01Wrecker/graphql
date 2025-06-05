@@ -1,65 +1,73 @@
-const asyncAppend = function (...children) {
-    (async () => {
-        const settled = await Promise.allSettled(children);
-        const results = settled
-            .filter((p) => p.status === "fulfilled")
-            .map((p) => p.value);
-        this.append(...results);
-    })();
-    return this;
-};
+
 const Div = (className = "", textContent) => {
     const divElement = document.createElement("div");
     divElement.className = className;
-    divElement.textContent = textContent;
+    if (textContent !== undefined) divElement.textContent = textContent;
     divElement.on = function (eventName, callback) {
         divElement["on" + eventName] = callback;
         return this;
     };
-    divElement.add = asyncAppend;
+    divElement.add = function (...args) {
+        divElement.append(...args);
+        return divElement;
+    };
     return divElement;
 };
 let body = Div("home")
 function loginfarm() {
+    if (localStorage.getItem("jwt")) {
+        infogeter();
+        logout = document.createElement("img");
+        logout.src = "/media/logout.svg";
+        logout.className = "logout";
+        logout.onclick = function () {
+            localStorage.removeItem("jwt");
+            location.reload();
+        }
+        document.body.appendChild(logout);
+        document.body.appendChild(body)
+        return
+    }
     username = document.createElement("input");
     username.placeholder = "Username";
     username.className = "username";
     username.type = "text";
     password = document.createElement("input");
     password.placeholder = "Password";
-    
+
     password.className = "password";
     password.type = "password";
     loginButton = document.createElement("img");
     loginButton.src = "/media/login.svg";
     loginButton.className = "loginButton";
-    loginButton.onclick = async function () {
-        let info = `${username.value}:${password.value}`
-        let data = await fetch("https://learn.zone01oujda.ma/api/auth/signin", {
-            method: "POST",
-            headers: {
-                "Authorization": `Basic ${btoa(info)}`,
+    loginButton.onclick =  async function () {
+        loginButton.style.pointerEvents = "none";
+            let info = `${username.value}:${password.value}`
+            let data = await fetch("https://learn.zone01oujda.ma/api/auth/signin", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Basic ${btoa(info)}`,
+                }
+            })
+            if (data.ok) {
+                let jwt = await data.json();
+                localStorage.setItem("jwt", jwt);
+                loginDiv.remove();
+                infogeter();
+                logout = document.createElement("img");
+                logout.src = "/media/logout.svg";
+                logout.className = "logout";
+                logout.onclick = function () {
+                    localStorage.removeItem("jwt");
+                    location.reload();
+                }
+                document.body.appendChild(logout);
+                document.body.appendChild(body)
+                return
+
+            } else {
+                alert("Login failed");
             }
-        })
-        if (data.ok) {
-            let jwt = await data.json();
-            localStorage.setItem("jwt", jwt);
-            loginDiv.remove();
-            infogeter();
-            logout = document.createElement("img");
-            logout.src = "/media/logout.svg";
-            logout.className = "logout";
-            logout.onclick = function () {
-                localStorage.removeItem("jwt");
-                location.reload();
-            }
-            document.body.appendChild(logout);
-            document.body.appendChild(body)
-            return
-            
-        } else {
-            alert("Login failed");
-        }
     }
     loginDiv = document.createElement("div");
     loginDiv.className = "loginDiv";
@@ -225,7 +233,7 @@ async function auditactifgeter(login) {
     let skills = data.skils[0].transactions
     skillCard(skills);
 }
-function info( userdata) {
+function info(userdata) {
     let infoDiv = Div("user-info");
     infoDiv.add(
         Div("user-field", `First Name: ${userdata.firstName || ""}`),
@@ -276,7 +284,7 @@ function skillCard(skills) {
 }
 function expinfo(exp) {
     let div = Div("expinfo");
-    div.add("Your XP: " + exp + " KB");
+    div.add("Your XP: " + exp);
     body.add(div);
 }
 function picprofile(login) {
@@ -317,8 +325,8 @@ async function auditGraph(auditRatio, done, received, cardsContainer) {
             )
         )
     )
-        cardsContainer.append(auditRatioCard);
-    
+    cardsContainer.append(auditRatioCard);
+
 }
 function rect(x, y, width, height, rx, ry, fill) {
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
