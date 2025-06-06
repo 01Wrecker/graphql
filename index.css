@@ -224,8 +224,16 @@ body {
     .info {
         font-size: 1.2rem;
     }
-
     .loginDiv {
         flex-direction: column;
+    }
+}
+@media (max-width: 500px) {
+    .hello {
+        position: relative;
+        top: 7vh;
+    }
+    .home {
+        gap: 19px;
     }
 }
