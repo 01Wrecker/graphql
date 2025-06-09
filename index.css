@@ -131,7 +131,6 @@ body {
 }
 
 .Bigtext::after {
-    content: " You can do better!";
     font-size: 14px;
     display: block;
     color: #fbc02d;

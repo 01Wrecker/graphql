@@ -15,7 +15,7 @@ const Div = (className = "", textContent) => {
 };
 let body = Div("home")
 function loginfarm() {
-    if (localStorage.getItem("jwt")) {
+    if (localStorage.getItem("jwt")) { 
         infogeter();
         logout = document.createElement("img");
         logout.src = "/media/logout.svg";
