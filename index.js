@@ -27,54 +27,56 @@ function loginfarm() {
         document.body.appendChild(logout);
         document.body.appendChild(body)
         return
-    }
-    username = document.createElement("input");
-    username.placeholder = "Username";
-    username.className = "username";
-    username.type = "text";
-    password = document.createElement("input");
-    password.placeholder = "Password";
-
-    password.className = "password";
-    password.type = "password";
-    loginButton = document.createElement("img");
-    loginButton.src = "/media/login.svg";
-    loginButton.className = "loginButton";
-    loginButton.onclick =  async function () {
-        loginButton.style.pointerEvents = "none";
-            let info = `${username.value}:${password.value}`
-            let data = await fetch("https://learn.zone01oujda.ma/api/auth/signin", {
-                method: "POST",
-                headers: {
-                    "Authorization": `Basic ${btoa(info)}`,
+    }else {
+        localStorage.clear()
+        username = document.createElement("input");
+        username.placeholder = "Username";
+        username.className = "username";
+        username.type = "text";
+        password = document.createElement("input");
+        password.placeholder = "Password";
+    
+        password.className = "password";
+        password.type = "password";
+        loginButton = document.createElement("img");
+        loginButton.src = "/media/login.svg";
+        loginButton.className = "loginButton";
+        loginButton.onclick =  async function () {
+            loginButton.style.pointerEvents = "none";
+                let info = `${username.value}:${password.value}`
+                let data = await fetch("https://learn.zone01oujda.ma/api/auth/signin", {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Basic ${btoa(info)}`,
+                    }
+                })
+                if (data.ok) {
+                    let jwt = await data.json();
+                    localStorage.setItem("jwt", jwt);
+                    loginDiv.remove();
+                    infogeter();
+                    logout = document.createElement("img");
+                    logout.src = "/media/logout.svg";
+                    logout.className = "logout";
+                    logout.onclick = function () {
+                        localStorage.removeItem("jwt");
+                        location.reload();
+                    }
+                    document.body.appendChild(logout);
+                    document.body.appendChild(body)
+                    return
+    
+                } else {
+                    alert("Login failed");
                 }
-            })
-            if (data.ok) {
-                let jwt = await data.json();
-                localStorage.setItem("jwt", jwt);
-                loginDiv.remove();
-                infogeter();
-                logout = document.createElement("img");
-                logout.src = "/media/logout.svg";
-                logout.className = "logout";
-                logout.onclick = function () {
-                    localStorage.removeItem("jwt");
-                    location.reload();
-                }
-                document.body.appendChild(logout);
-                document.body.appendChild(body)
-                return
-
-            } else {
-                alert("Login failed");
-            }
+        }
+        loginDiv = document.createElement("div");
+        loginDiv.className = "loginDiv";
+        loginDiv.appendChild(username);
+        loginDiv.appendChild(password);
+        loginDiv.appendChild(loginButton);
+        document.body.appendChild(loginDiv);
     }
-    loginDiv = document.createElement("div");
-    loginDiv.className = "loginDiv";
-    loginDiv.appendChild(username);
-    loginDiv.appendChild(password);
-    loginDiv.appendChild(loginButton);
-    document.body.appendChild(loginDiv);
 }
 loginfarm();
 async function infogeter() {
