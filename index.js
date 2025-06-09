@@ -100,7 +100,7 @@ async function infogeter() {
     if (dat.errors) {
         console.log("1");
         alert("Login failed");
-        localStorage.removeItem("jwt");
+        localStorage.clear()
         location.reload();
         return
 
@@ -315,7 +315,7 @@ function skillCard(skills) {
 
 function expinfo(exp) {
     let div = Div("expinfo");
-    div.add("Your XP: " + exp);
+    div.add("Your XP: " + exp +" kb");
     body.add(div);
 }
 function picprofile(login) {
