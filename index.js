@@ -68,6 +68,7 @@ function loginfarm() {
     
                 } else {
                     alert("Login failed");
+                    loginButton.style.pointerEvents = "auto";
                 }
         }
         loginDiv = document.createElement("div");
