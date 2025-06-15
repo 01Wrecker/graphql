@@ -1,5 +1,9 @@
 body {
-    background-color: #5a4022a4;
+    background-image: url("media/01-trame.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #69c8ff;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -131,6 +135,7 @@ body {
 }
 
 .Bigtext::after {
+    content: " You can do better!";
     font-size: 14px;
     display: block;
     color: #fbc02d;
