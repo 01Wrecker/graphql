@@ -17,18 +17,21 @@ body {
     justify-content: center;
     min-height: 100vh;
 }
+
 .skillsTitle {
     color: #fff;
     font-size: 2rem;
     text-align: center;
     margin-top: 20px;
 }
+
 .skillsSubtitle {
     color: #fff;
     font-size: 1.2rem;
     text-align: center;
     margin-bottom: 20px;
 }
+
 .home {
     display: flex;
     flex-direction: column;
@@ -77,11 +80,17 @@ body {
     font-size: 16px;
 }
 
-.logo,
-.logout {
+.logo {
     width: 80px;
     height: 80px;
     position: absolute;
+    top: 10px;
+}
+
+.logout {
+    width: 80px;
+    height: 80px;
+    position: relative;
     top: 10px;
 }
 
@@ -173,7 +182,7 @@ body {
 }
 
 .hello,
-.picprofile,
+
 .auditRatio,
 .info {
     display: flex;
@@ -188,6 +197,18 @@ body {
     border-radius: 999px;
     margin: 20px auto;
     width: fit-content;
+}
+
+.picprofile {
+    position: absolute;
+    top: 10px;
+    height: 45px;
+    right: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    z-index: 10;
 }
 
 .auditRatio {
@@ -211,7 +232,8 @@ body {
     font-size: 12px;
     pointer-events: none;
 }
-.user-info{
+
+.user-info {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -220,34 +242,29 @@ body {
     color: #fff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     width: 90%;
     max-width: 350px;
     margin: 20px auto;
     font-size: 1rem;
 }
-/* 📱 Mobile-First Responsive Design */
-@media (min-width: 768px) {
-    .audit {
-        flex-direction: row;
-        justify-content: space-around;
-    }
 
-    .hello,
-    .picprofile,
-    .auditRatio,
-    .info {
-        font-size: 1.2rem;
-    }
-    .loginDiv {
-        flex-direction: column;
-    }
+.profile {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
+
+/* 📱 Mobile-First Responsive Design */
+
 @media (max-width: 500px) {
     .hello {
-        position: relative;
-        top: 7vh;
+        display: none;
     }
+
     .home {
         gap: 19px;
     }

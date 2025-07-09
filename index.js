@@ -13,6 +13,8 @@ const Div = (className = "", textContent) => {
     };
     return divElement;
 };
+const header = document.querySelector("header");
+const logo = document.querySelector(".logo");
 async function dataseter() {
     let data = await infogeter();
     let data1 = await datageter(data);
@@ -22,14 +24,7 @@ let body = Div("home")
 function loginfarm() {
     if (localStorage.getItem("jwt")) {
         dataseter();
-        logout = document.createElement("img");
-        logout.src = "/media/logout.svg";
-        logout.className = "logout";
-        logout.onclick = function () {
-            localStorage.removeItem("jwt");
-            location.reload();
-        }
-        document.body.appendChild(logout);
+        logo.onclick = profileshow;
         document.body.appendChild(body)
         return
     } else {
@@ -60,14 +55,7 @@ function loginfarm() {
                 localStorage.setItem("jwt", jwt);
                 loginDiv.remove();
                 dataseter();
-                logout = document.createElement("img");
-                logout.src = "/media/logout.svg";
-                logout.className = "logout";
-                logout.onclick = function () {
-                    localStorage.removeItem("jwt");
-                    location.reload();
-                }
-                document.body.appendChild(logout);
+                logo.onclick = profileshow;
                 document.body.appendChild(body)
                 return
 
@@ -85,6 +73,38 @@ function loginfarm() {
     }
 }
 loginfarm();
+let userdata
+function profileshow() {
+    if (document.querySelector(".profile") && document.querySelector(".user-info")) {
+        document.querySelector(".profile").remove();
+        document.querySelector(".user-info").remove();
+        return
+    }
+    profile = Div("profile")
+    logout = document.createElement("img");
+    logout.src = "/media/logout.svg";
+    logout.className = "logout";
+    logout.onclick = function () {
+        localStorage.removeItem("jwt");
+        location.reload();
+    }
+   
+    let infoDiv = Div("user-info");
+    infoDiv.add(
+        Div("user-field", `First Name: ${userdata.firstName || ""}`),
+        Div("user-field", `Last Name: ${userdata.lastName || ""}`),
+        Div("user-field", `Email: ${userdata.email || ""}`),
+        Div("user-field", `Phone: ${userdata.tel || ""}`),
+        Div("user-field", `City: ${userdata.city || ""}`),
+        Div("user-field", `Birth City: ${userdata.birthCity || ""}`),
+        Div("user-field", `Date of Birth: ${userdata.dateOfBirth ? userdata.dateOfBirth.split("T")[0] : ""}`),
+        Div("user-field", `Gender: ${userdata.gender || ""}`),
+        logout
+    );
+    
+    profile.add(infoDiv)
+    body.add(profile);
+}
 async function infogeter() {
     let token = localStorage.getItem("jwt")
     let resp = await fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
@@ -115,11 +135,11 @@ async function infogeter() {
     }
 
     let login = dat.data.user[0].login
-    let div = Div("hello")
-    div.add(picprofile(login));
-    let va = `Hello ${dat.data.user[0].firstName} ${dat.data.user[0].lastName}`;
-    div.add(va);
-    body.add(div);
+    // let div = Div("hello")
+
+    /*  let va = `Hello ${dat.data.user[0].firstName} ${dat.data.user[0].lastName}`;
+     div.add(va); */
+    header.append(picprofile(login));
     return login;
 }
 async function datageter(login) {
@@ -207,8 +227,8 @@ async function datageter(login) {
         document.body.appendChild(h1)
         return
     }
-    let userdata = dat.data.user[0].attrs
-    info(userdata)
+    let Userdata = dat.data.user[0].attrs
+    userdata = Userdata
     if (!dat.data.audit || dat.data.audit.length === 0) {
         var h = Div("audit").add(
             Div("no-audit").add("No audit found.")
@@ -239,17 +259,7 @@ async function datageter(login) {
     return h
 }
 function info(userdata) {
-    let infoDiv = Div("user-info");
-    infoDiv.add(
-        Div("user-field", `First Name: ${userdata.firstName || ""}`),
-        Div("user-field", `Last Name: ${userdata.lastName || ""}`),
-        Div("user-field", `Email: ${userdata.email || ""}`),
-        Div("user-field", `Phone: ${userdata.tel || ""}`),
-        Div("user-field", `City: ${userdata.city || ""}`),
-        Div("user-field", `Birth City: ${userdata.birthCity || ""}`),
-        Div("user-field", `Date of Birth: ${userdata.dateOfBirth ? userdata.dateOfBirth.split("T")[0] : ""}`),
-        Div("user-field", `Gender: ${userdata.gender || ""}`),
-    );
+
     body.add(infoDiv);
 }
 function skillCard(skills) {
@@ -322,6 +332,7 @@ function picprofile(login) {
     let img = document.createElement("img");
     img.className = "picprofile";
     img.src = picprofile;
+    img.onclick = profileshow
     img.onerror = function () {
         img.onerror = null;
         img.src = "/media/ppp.jpg";
