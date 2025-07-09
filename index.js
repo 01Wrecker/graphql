@@ -13,10 +13,15 @@ const Div = (className = "", textContent) => {
     };
     return divElement;
 };
+async function dataseter() {
+    let data = await infogeter();
+    let data1 = await datageter(data);
+    body.add(data1);
+}
 let body = Div("home")
 function loginfarm() {
-    if (localStorage.getItem("jwt")) { 
-        infogeter();
+    if (localStorage.getItem("jwt")) {
+        dataseter();
         logout = document.createElement("img");
         logout.src = "/media/logout.svg";
         logout.className = "logout";
@@ -27,7 +32,7 @@ function loginfarm() {
         document.body.appendChild(logout);
         document.body.appendChild(body)
         return
-    }else {
+    } else {
         localStorage.clear()
         username = document.createElement("input");
         username.placeholder = "Username";
@@ -35,41 +40,41 @@ function loginfarm() {
         username.type = "text";
         password = document.createElement("input");
         password.placeholder = "Password";
-    
+
         password.className = "password";
         password.type = "password";
         loginButton = document.createElement("img");
         loginButton.src = "/media/login.svg";
         loginButton.className = "loginButton";
-        loginButton.onclick =  async function () {
+        loginButton.onclick = async function () {
             loginButton.style.pointerEvents = "none";
-                let info = `${username.value}:${password.value}`
-                let data = await fetch("https://learn.zone01oujda.ma/api/auth/signin", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": `Basic ${btoa(info)}`,
-                    }
-                })
-                if (data.ok) {
-                    let jwt = await data.json();
-                    localStorage.setItem("jwt", jwt);
-                    loginDiv.remove();
-                    infogeter();
-                    logout = document.createElement("img");
-                    logout.src = "/media/logout.svg";
-                    logout.className = "logout";
-                    logout.onclick = function () {
-                        localStorage.removeItem("jwt");
-                        location.reload();
-                    }
-                    document.body.appendChild(logout);
-                    document.body.appendChild(body)
-                    return
-    
-                } else {
-                    alert("Login failed");
-                    loginButton.style.pointerEvents = "auto";
+            let info = `${username.value}:${password.value}`
+            let data = await fetch("https://learn.zone01oujda.ma/api/auth/signin", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Basic ${btoa(info)}`,
                 }
+            })
+            if (data.ok) {
+                let jwt = await data.json();
+                localStorage.setItem("jwt", jwt);
+                loginDiv.remove();
+                dataseter();
+                logout = document.createElement("img");
+                logout.src = "/media/logout.svg";
+                logout.className = "logout";
+                logout.onclick = function () {
+                    localStorage.removeItem("jwt");
+                    location.reload();
+                }
+                document.body.appendChild(logout);
+                document.body.appendChild(body)
+                return
+
+            } else {
+                alert("Login failed");
+                loginButton.style.pointerEvents = "auto";
+            }
         }
         loginDiv = document.createElement("div");
         loginDiv.className = "loginDiv";
@@ -114,11 +119,10 @@ async function infogeter() {
     div.add(picprofile(login));
     let va = `Hello ${dat.data.user[0].firstName} ${dat.data.user[0].lastName}`;
     div.add(va);
-    auditactifgeter(dat.data.user[0].login);
-
     body.add(div);
+    return login;
 }
-async function auditactifgeter(login) {
+async function datageter(login) {
     let token = localStorage.getItem("jwt")
     let resp = await fetch("https://learn.zone01oujda.ma/api/graphql-engine/v1/graphql", {
         method: "POST",
@@ -132,7 +136,6 @@ async function auditactifgeter(login) {
                     campus
                     auditRatio
                     attrs
-
                 }
                     audit ( where: {
                     auditorLogin : {_eq : "${login}"}
@@ -146,8 +149,6 @@ async function auditactifgeter(login) {
                     captainLogin
                     path
                     }
-                    
-
                   }
                      xpTransactions : transaction_aggregate(where: { type: { _eq: "xp" }, eventId: { _eq: 41 } }) {
                             aggregate {
@@ -225,7 +226,6 @@ async function auditactifgeter(login) {
     }
     let data = dat.data
     body.add(h);
-    let d = data.transaction
     let done = Math.round(data.upTransactions.aggregate.sum.amount / 1000)
     let received = Math.round(data.downTransactions.aggregate.sum.amount / 1000)
     let auditRatio = Math.round(data.user[0].auditRatio * 10) / 10
@@ -235,6 +235,8 @@ async function auditactifgeter(login) {
     auditGraph(auditRatio, done, received, cardsContainer)
     let skills = data.skils[0].transactions
     skillCard(skills);
+
+    return h
 }
 function info(userdata) {
     let infoDiv = Div("user-info");
@@ -256,24 +258,20 @@ function skillCard(skills) {
 
     let svgHeight = skills.length * 20;
     let svgWidth = skills.length * 30 + 30;
-
-    // Create SVG element
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
-    svg.style.width = "100%";     // Responsive width
-    svg.style.height = "auto";    // Let height adjust
+    svg.style.width = "100%";
+    svg.style.height = "auto";
     svg.style.display = "block";
     svg.style.margin = "0 auto";
-
-    // Create placeholder
     let placeholder = Div("skillsholder");
+    placeholder.add(Div("skillsTitle", "all Skills"), Div("skillsSubtitle", "Hover over a bar to see the skill and its percentage"));
     placeholder.style.width = "100%";
     placeholder.style.overflowX = "auto";
     placeholder.style.boxSizing = "border-box";
     placeholder.style.padding = "10px 0";
 
-    // Sort and draw bars
     let count = 0;
     skills.sort((a, b) => a.amount - b.amount);
     skills.forEach(skill => {
@@ -295,7 +293,6 @@ function skillCard(skills) {
             tooltip.style.pointerEvents = "none";
             tooltip.style.zIndex = 1000;
             tooltip.setAttribute("ishover", "true");
-
             const rect = e.target.getBoundingClientRect();
             tooltip.style.top = (rect.top - 30 + window.scrollY) + "px";
             tooltip.style.left = (rect.left + window.scrollX) + "px";
@@ -311,14 +308,13 @@ function skillCard(skills) {
         svg.append(rectan);
     });
 
-    // Add and display
     placeholder.append(svg);
     body.add(placeholder);
 }
 
 function expinfo(exp) {
     let div = Div("expinfo");
-    div.add("Your XP: " + exp +" kb");
+    div.add("Your XP: " + exp + " kb");
     body.add(div);
 }
 function picprofile(login) {
@@ -327,7 +323,7 @@ function picprofile(login) {
     img.className = "picprofile";
     img.src = picprofile;
     img.onerror = function () {
-        img.onerror = null; // prevent infinite loop
+        img.onerror = null;
         img.src = "/media/ppp.jpg";
     };
     return img;
@@ -338,8 +334,6 @@ async function auditGraph(auditRatio, done, received, cardsContainer) {
     const svgHeight = 70;
     const donLen = (done / total) * svgWidth;
     const recLen = (received / total) * svgWidth;
-
-    // Create responsive SVG
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("viewBox", `0 0 ${svgWidth} ${svgHeight}`);
     svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
@@ -347,12 +341,10 @@ async function auditGraph(auditRatio, done, received, cardsContainer) {
     svg.style.height = "auto";
     svg.style.display = "block";
 
-    // Draw rectangles
     let rectan = rect(0, 0, donLen, 16, 10, 10, "#fbc02d");
     let rectan2 = rect(0, 40, recLen, 16, 10, 10, "white");
     svg.append(rectan, rectan2);
 
-    // Create audit card
     let auditRatioCard = Div("audiRatioCard").add(
         Div("texts").add(
             Div("smalltext", "audit Ratio"),
