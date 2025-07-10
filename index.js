@@ -77,9 +77,13 @@ let userdata
 function profileshow() {
     if (document.querySelector(".profile") && document.querySelector(".user-info")) {
         document.querySelector(".profile").remove();
-        document.querySelector(".user-info").remove();
+        const picProfileElem = document.querySelector(".picprofile");
+        if (picProfileElem) {
+            picProfileElem.classList.remove("active");
+        }
         return
     }
+    document.querySelector(".picprofile").classList.add("active");
     profile = Div("profile")
     logout = document.createElement("img");
     logout.src = "/media/logout.svg";
@@ -88,7 +92,7 @@ function profileshow() {
         localStorage.removeItem("jwt");
         location.reload();
     }
-   
+
     let infoDiv = Div("user-info");
     infoDiv.add(
         Div("user-field", `First Name: ${userdata.firstName || ""}`),
@@ -101,9 +105,9 @@ function profileshow() {
         Div("user-field", `Gender: ${userdata.gender || ""}`),
         logout
     );
-    
+
     profile.add(infoDiv)
-    body.add(profile);
+    header.append(profile);
 }
 async function infogeter() {
     let token = localStorage.getItem("jwt")

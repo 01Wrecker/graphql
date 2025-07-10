@@ -3,10 +3,12 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     background-color: #69c8ff;
     margin: 0;
     padding: 0;
     font-family: sans-serif;
+    overflow-x: hidden;
 }
 
 .loginDiv {
@@ -35,10 +37,13 @@ body {
 .home {
     display: flex;
     flex-direction: column;
+    position: relative;
     align-items: center;
     width: 90%;
     height: 100%;
     margin: 0 auto;
+    top: 9vh;
+    overflow-y: hidden;
 }
 
 .username,
@@ -68,6 +73,13 @@ body {
     box-shadow: 0 2px 8px rgba(216, 36, 36, 0.2);
 }
 
+header {
+    height: 9vh;
+    background-color: #2d2d2d73;
+    position: fixed;
+    width: 100%;
+}
+
 .expinfo {
     background-color: #746060;
     width: 90%;
@@ -83,7 +95,7 @@ body {
 .logo {
     width: 80px;
     height: 80px;
-    position: absolute;
+    position: fixed;
     top: 10px;
 }
 
@@ -201,7 +213,9 @@ body {
 
 .picprofile {
     position: absolute;
+    position: fixed;
     top: 10px;
+    box-shadow: #000000 7px 0px 010px;
     height: 45px;
     right: 10px;
     border-radius: 50%;
@@ -209,6 +223,15 @@ body {
     display: flex;
     align-items: center;
     z-index: 10;
+}
+
+.picprofile:hover {
+    box-shadow: #000000 -7px 0px 10px;
+
+}
+
+.active {
+    box-shadow: #000000 -7px 0px 10px;
 }
 
 .auditRatio {
@@ -250,7 +273,7 @@ body {
 }
 
 .profile {
-    position: absolute;
+    position: fixed;
     top: 10px;
     right: 10px;
     display: flex;
