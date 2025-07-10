@@ -1,10 +1,17 @@
+:root {
+    --bg-clolor: #333446;
+    --bg-card-clolor: #7F8CAA;
+    --primary-color: #B8CFCE;
+    --text-coller: #EAEFEF;
+}
+
 body {
     background-image: url("media/01-trame.svg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-color: #69c8ff;
+    background-color: var(--bg-clolor);
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -21,6 +28,8 @@ body {
     margin-top: 40vh;
     margin-left: 25%;
     width: 40%;
+    max-width: 400px;
+    min-width: 200px;
     height: 30vh;
     border-radius: 12px;
     background-color: #3f3f3f2d;
@@ -31,14 +40,14 @@ body {
 
 
 .skillsTitle {
-    color: #fff;
+    color: var(--text-coller);
     font-size: 2rem;
     text-align: center;
     margin-top: 20px;
 }
 
 .skillsSubtitle {
-    color: #fff;
+    color: var(--text-coller);
     font-size: 1.2rem;
     text-align: center;
     margin-bottom: 20px;
@@ -46,18 +55,23 @@ body {
 
 .home {
     display: flex;
-    flex-direction: column;
-    position: relative;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
+    gap: 5rem;
+    /* flex-direction: column; */
+    /* position: relative; */
+    align-items: center;
+    padding-top: 80px;
     width: 90%;
-    height: 100%;
+    /* height: 100%; */
     margin: 0 auto;
-    top: 9vh;
-    overflow-y: hidden;
+    /* top: 9vh; */
+    /* overflow-y: hidden;  */
 }
 
 .username,
-.password{
+.password {
     width: 100%;
     max-width: 300px;
     height: 40px;
@@ -65,11 +79,12 @@ body {
     border: 2px solid #D82424;
     padding-left: 10px;
 }
+
 .loginButton {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #fff;
+    color: var(--text-coller);
     width: 100%;
     background-color: #6e6e6e7e;
     max-width: 300px;
@@ -86,13 +101,13 @@ body {
 }
 
 .no-audit {
-    color: #fff;
+    color: var(--text-coller);
     background: #D82424;
     border-radius: 8px;
     padding: 10px 20px;
     text-align: center;
     font-size: 1rem;
-    box-shadow: 0 2px 8px rgba(216, 36, 36, 0.2);
+    box-shadow: 0 2px 8px var(--primary-color);
 }
 
 header {
@@ -102,17 +117,18 @@ header {
     width: 100%;
     z-index: 1;
     backdrop-filter: blur(40px);
+    transition: ease 0.3s all;
 }
 
 .expinfo {
-    background-color: #746060;
+    background-color: var(--bg-card-clolor);
     width: 90%;
     max-width: 300px;
-    margin: 30px auto;
-    border-radius: 9px;
-    border: 2px solid #D82424;
+    /* margin: 30px auto; */
+    border-radius: 12px;
+    /* border: 2px solid #D82424; */
     padding: 15px;
-    color: #ffffff;
+    color: var(--text-coller);
     font-size: 16px;
 }
 
@@ -151,22 +167,23 @@ header {
     gap: 20px;
     border-radius: 12px;
     font-size: large;
-    background: #dad6d6;
+    color: var(--text-coller);
+    background: var(--bg-card-clolor);
     width: 90%;
     max-width: 300px;
     padding: 20px;
-    margin: 30px auto;
+    /* margin: 30px auto; */
 }
 
 .audiRatioCard {
-    background-color: #1e1e1e;
-    color: #ffffff;
+    background-color: var(--bg-card-clolor);
+    color: var(--text-coller);
     width: 90%;
     max-width: 400px;
     padding: 20px;
     border-radius: 12px;
-    font-family: "Segoe UI", sans-serif;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    /* font-family: "Segoe UI", sans-serif; */
+    /* box-shadow: 0 4px 10px var(--primary-color); */
     margin: 20px auto;
 }
 
@@ -213,7 +230,7 @@ header {
 }
 
 .name {
-    color: #ffffff;
+    color: var(--text-coller);
     font-size: 14px;
 }
 
@@ -227,7 +244,7 @@ header {
     font-size: 1rem;
     gap: 10px;
     border: 1px solid #B52424;
-    background: #746060;
+    background: var(--bg-card-clolor);
     height: 45px;
     padding: 0 20px;
     border-radius: 999px;
@@ -239,7 +256,7 @@ header {
     position: absolute;
     position: fixed;
     top: 10px;
-    box-shadow: #000000 7px 0px 010px;
+    box-shadow: var(--primary-color) 4px 0px 20px;
     height: 45px;
     right: 10px;
     border-radius: 50%;
@@ -247,25 +264,28 @@ header {
     display: flex;
     align-items: center;
     z-index: 10;
+    transition: ease 0.3s all;
+    cursor: pointer;
 }
 
 .picprofile:hover {
-    box-shadow: #000000 -7px 0px 10px;
+    box-shadow: var(--primary-color) -4px 0px 20px;
 
 }
 
 .active {
-    box-shadow: #000000 -7px 0px 10px;
+    box-shadow: var(--primary-color) -4px 0px 20px;
 }
 
 .auditRatio {
-    background: #ffffff;
+    background: var(--text-coller);
 }
 
 .skillsholder {
-    background-color: #746060;
+    background-color: var(--bg-card-clolor);
     padding: 20px;
-    margin: 20px auto;
+    /* margin: 20px auto; */
+    border-radius: 12px;
     width: 90%;
     max-width: 600px;
 }
@@ -273,7 +293,7 @@ header {
 .tooltip {
     position: absolute;
     background: #333;
-    color: #fff;
+    color: var(--text-coller);
     padding: 4px 8px;
     border-radius: 4px;
     font-size: 12px;
@@ -286,7 +306,7 @@ header {
     align-items: center;
     gap: 10px;
     background: #2d2d2d;
-    color: #fff;
+    color: var(--text-coller);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);

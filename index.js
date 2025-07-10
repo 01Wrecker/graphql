@@ -17,14 +17,12 @@ const header = document.querySelector("header");
 const logo = document.querySelector(".logo");
 async function dataseter() {
     let data = await infogeter();
-    let data1 = await datageter(data);
-    body.add(data1);
+    await datageter(data);
 }
 let body = Div("home")
 function loginfarm() {
     if (localStorage.getItem("jwt")) {
         dataseter();
-        logo.onclick = profileshow;
         document.body.appendChild(body)
         return
     } else {
@@ -262,8 +260,7 @@ async function datageter(login) {
     auditGraph(auditRatio, done, received, cardsContainer)
     let skills = data.skils[0].transactions
     skillCard(skills);
-
-    return h
+    body.add(data1);
 }
 function info(userdata) {
 
