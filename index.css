@@ -13,12 +13,22 @@ body {
 
 .loginDiv {
     display: flex;
+    position: absolute;
     flex-direction: column;
     align-items: center;
     gap: 10px;
     justify-content: center;
-    min-height: 100vh;
+    margin-top: 40vh;
+    margin-left: 25%;
+    width: 40%;
+    height: 30vh;
+    border-radius: 12px;
+    background-color: #3f3f3f2d;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
+
+
 
 .skillsTitle {
     color: #fff;
@@ -47,9 +57,21 @@ body {
 }
 
 .username,
-.password,
-.loginButton {
+.password{
     width: 100%;
+    max-width: 300px;
+    height: 40px;
+    border-radius: 9px;
+    border: 2px solid #D82424;
+    padding-left: 10px;
+}
+.loginButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    width: 100%;
+    background-color: #6e6e6e7e;
     max-width: 300px;
     height: 40px;
     border-radius: 9px;
@@ -78,6 +100,8 @@ header {
     background-color: #2d2d2d73;
     position: fixed;
     width: 100%;
+    z-index: 1;
+    backdrop-filter: blur(40px);
 }
 
 .expinfo {

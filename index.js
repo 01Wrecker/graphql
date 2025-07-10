@@ -30,17 +30,20 @@ function loginfarm() {
     } else {
         localStorage.clear()
         username = document.createElement("input");
-        username.placeholder = "Username";
+        username.placeholder = "Username or Email";
         username.className = "username";
         username.type = "text";
         password = document.createElement("input");
         password.placeholder = "Password";
-
         password.className = "password";
         password.type = "password";
-        loginButton = document.createElement("img");
-        loginButton.src = "/media/login.svg";
-        loginButton.className = "loginButton";
+        password.onkeyup = function (e) {
+            if (e.key === "Enter") {
+                loginButton.click();
+            }
+        }
+        loginButton = Div("loginButton");
+        loginButton.textContent = "Login";
         loginButton.onclick = async function () {
             loginButton.style.pointerEvents = "none";
             let info = `${username.value}:${password.value}`
@@ -55,7 +58,6 @@ function loginfarm() {
                 localStorage.setItem("jwt", jwt);
                 loginDiv.remove();
                 dataseter();
-                logo.onclick = profileshow;
                 document.body.appendChild(body)
                 return
 
@@ -69,6 +71,7 @@ function loginfarm() {
         loginDiv.appendChild(username);
         loginDiv.appendChild(password);
         loginDiv.appendChild(loginButton);
+     
         document.body.appendChild(loginDiv);
     }
 }
