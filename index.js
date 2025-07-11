@@ -39,6 +39,7 @@ function loginfarm() {
         password.onkeyup = function (e) {
             if (e.key === "Enter") {
                 loginButton.click();
+                password.style.pointerEvents = "none";
             }
         }
         loginButton = Div("loginButton");
@@ -61,8 +62,13 @@ function loginfarm() {
                 return
 
             } else {
-                alert("Login failed");
                 loginButton.style.pointerEvents = "auto";
+                password.style.pointerEvents = "auto";
+                if (document.querySelector(".error")) {
+                    document.querySelector(".error").remove();
+                }
+                loginDiv.appendChild(Div("error", "Login failed, please try again."));
+
             }
         }
         loginDiv = document.createElement("div");
@@ -86,9 +92,9 @@ function profileshow() {
         localStorage.clear();
         location.reload();
     }
-    
+
     let infoDiv = Div("user-info");
-    
+
     if (document.querySelector(".profile")) {
         document.querySelector(".profile").remove();
         const picProfileElem = document.querySelector(".picprofile");
@@ -97,7 +103,7 @@ function profileshow() {
         }
         return
     }
-    if (isnotstudent){
+    if (isnotstudent) {
         infoDiv.add(logout)
         profile.add(infoDiv);
         header.append(profile);

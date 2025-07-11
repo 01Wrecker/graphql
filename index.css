@@ -193,7 +193,12 @@ header {
     max-width: 300px;
     padding: 20px;
 }
-
+.error {
+    color: #D82424;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
 .audiRatioCard {
     background-color: var(--bg-card-clolor);
     box-shadow: var(--primary-color) 0px 4px 10px;
