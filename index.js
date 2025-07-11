@@ -20,6 +20,7 @@ async function dataseter() {
     await datageter(data);
 }
 let body = Div("home")
+body.add(header);
 function loginfarm() {
     if (localStorage.getItem("jwt")) {
         dataseter();
@@ -69,7 +70,7 @@ function loginfarm() {
         loginDiv.appendChild(username);
         loginDiv.appendChild(password);
         loginDiv.appendChild(loginButton);
-     
+
         document.body.appendChild(loginDiv);
     }
 }
@@ -196,12 +197,17 @@ async function datageter(login) {
                                 }
                             }
                         }
-                    transaction (where : {type : {_eq : "xp"} ,
-                        eventId : {_eq  :41}},
-                        ){  
-                        path
-                        amount
-                    } 
+                     transaction(
+                      where: {
+                        type: { _eq: "xp" }
+                        event: { object: { type: { _eq: "module" } } }
+                      }
+                    ) {
+                      project: object {
+                        name
+                      }
+                      amount
+                    }
                     skils :   user {
                     transactions(
                     where: {type: {_regex: "skill"}}
@@ -256,7 +262,9 @@ async function datageter(login) {
     let auditRatio = Math.round(data.user[0].auditRatio * 10) / 10
     let cardsContainer = Div("cardsContainer")
     body.add(cardsContainer)
-    expinfo(Math.round((data.xpTransactions.aggregate.sum.amount) / 1000))
+    console.log(data.transaction);
+    
+    expinfo(Math.round((data.xpTransactions.aggregate.sum.amount) / 1000), data.transaction);
     auditGraph(auditRatio, done, received, cardsContainer)
     let skills = data.skils[0].transactions
     skillCard(skills);
@@ -326,9 +334,22 @@ function skillCard(skills) {
     body.add(placeholder);
 }
 
-function expinfo(exp) {
+function expinfo(exp, projects) {
+    function hh(exp) {
+        if (exp < 1000) return exp + "kb ";
+        else if (exp < 1000000) return Math.round(exp / 1000) + " mb";
+    }
+    count = 0;
     let div = Div("expinfo");
-    div.add("Your XP: " + exp + " kb");
+    div.add("Your XP: " + hh(exp));
+    for (let i = projects.length - 1; i >= 0; i--) {
+        if (count >= 4) break;else {
+            count++;
+            let project = projects[i].project.name;
+            let amount = Math.round(projects[i].amount / 1000);
+            div.add( Div("project").add(` Project: ${project}`));
+        }
+    }
     body.add(div);
 }
 function picprofile(login) {
