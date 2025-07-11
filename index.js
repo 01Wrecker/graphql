@@ -63,7 +63,7 @@ function loginfarm() {
 
             } else {
                 loginButton.style.pointerEvents = "auto";
-                password.style.pointerEvents = "auto";
+                    password.style.pointerEvents = "auto";
                 if (document.querySelector(".error")) {
                     document.querySelector(".error").remove();
                 }
