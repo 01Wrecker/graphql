@@ -195,7 +195,8 @@ header {
 }
 
 .audiRatioCard {
-    background-color: var(--bg-graph-color);
+    background-color: var(--bg-card-clolor);
+    box-shadow: var(--primary-color) 0px 4px 10px;
     color: var(--text-coller);
     width: 90%;
     max-width: 400px;
@@ -290,7 +291,8 @@ header {
 }
 
 .skillsholder {
-    background-color: var(--bg-graph-color);
+    background-color: var(--bg-card-clolor);
+    box-shadow: var(--primary-color) 0px 4px 10px;
     padding: 20px;
     border-radius: 12px;
     width: 90%;
