@@ -28,21 +28,24 @@ function loginfarm() {
         return
     } else {
         localStorage.clear()
-        username = document.createElement("input");
+        let username = document.createElement("input");
         username.placeholder = "Username or Email";
         username.className = "username";
         username.type = "text";
-        password = document.createElement("input");
+        let password = document.createElement("input");
         password.placeholder = "Password";
         password.className = "password";
         password.type = "password";
-        password.onkeyup = function (e) {
+        password.addEventListener("keyup", handleKeyUp)
+        function handleKeyUp(e) {
             if (e.key === "Enter") {
                 loginButton.click();
-                password.style.pointerEvents = "none";
+                password.removeEventListener("keyup", handleKeyUp);
             }
         }
-        loginButton = Div("loginButton");
+
+
+        let loginButton = Div("loginButton");
         loginButton.textContent = "Login";
         loginButton.onclick = async function () {
             loginButton.style.pointerEvents = "none";
@@ -63,7 +66,7 @@ function loginfarm() {
 
             } else {
                 loginButton.style.pointerEvents = "auto";
-                    password.style.pointerEvents = "auto";
+                password.addEventListener("keyup", handleKeyUp)
                 if (document.querySelector(".error")) {
                     document.querySelector(".error").remove();
                 }
@@ -307,7 +310,6 @@ function level(level) {
 function skillCard(skills) {
     console.log(skills);
     if (!skills || !skills.length) return;
-
     let svgHeight = skills.length * 20;
     let svgWidth = skills.length * 30 + 30;
     let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -365,13 +367,9 @@ function skillCard(skills) {
 }
 
 function expinfo(exp, projects) {
-    function hh(exp) {
-        if (exp < 1000) return exp + "kb ";
-        else if (exp < 1000000) return Math.round(exp / 1000) + " mb";
-    }
     count = 0;
     let div = Div("expinfo");
-    div.add("Your XP: " + hh(exp));
+    div.add("Your XP: " +exp+ "kb");
     for (let i = projects.length - 1; i >= 0; i--) {
         if (count >= 4) break; else {
             count++;
