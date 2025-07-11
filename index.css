@@ -61,15 +61,10 @@ body {
     justify-content: center;
     align-items: center;
     gap: 10px;
-    /* flex-direction: column; */
-    /* position: relative; */
     align-items: center;
     padding-top: 80px;
     width: 90%;
-    /* height: 100%; */
     margin: 0 auto;
-    /* top: 9vh; */
-    /* overflow-y: hidden;  */
 }
 
 .username,
