@@ -22,6 +22,16 @@ async function dataseter() {
 let body = Div("home")
 body.add(header);
 function loginfarm() {
+console.log(`
+  ███████╗   ██████╗ ███╗   ██╗███████╗     ██████╗  ██╗     ██████╗ ██╗   ██╗     ██╗██████╗  █████╗ 
+  ╚══███╔╝  ██╔═══██╗████╗  ██║██╔════╝    ██╔═══██╗███║    ██╔═══██╗██║   ██║     ██║██╔══██╗██╔══██╗
+    ███╔╝   ██║   ██║██╔██╗ ██║█████╗      ██║   ██║╚██║    ██║   ██║██║   ██║     ██║██║  ██║███████║
+   ███╔╝    ██║   ██║██║╚██╗██║██╔══╝      ██║   ██║ ██║    ██║   ██║██║   ██║██   ██║██║  ██║██╔══██║
+  ███████╗  ╚██████╔╝██║ ╚████║███████╗    ╚██████╔╝ ██║    ╚██████╔╝╚██████╔╝╚█████╔╝██████╔╝██║  ██║
+  ╚══════╝   ╚═════╝ ╚═╝  ╚═══╝╚══════╝     ╚═════╝  ╚═╝     ╚═════╝  ╚═════╝  ╚════╝ ╚═════╝ ╚═╝  ╚═╝
+`);
+
+
     if (localStorage.getItem("jwt")) {
         dataseter();
         document.body.appendChild(body)
@@ -148,7 +158,6 @@ async function infogeter() {
     })
     let dat = await resp.json()
     if (dat.errors) {
-        console.log("1");
         alert("Login failed");
         localStorage.clear()
         location.reload();
@@ -251,7 +260,6 @@ async function datageter(login) {
     })
     let dat = await resp.json()
     if (dat.errors) {
-        console.log("2");
         alert("Login failed");
         localStorage.removeItem("jwt");
         location.reload();
@@ -289,7 +297,6 @@ async function datageter(login) {
     let auditRatio = Math.round(data.user[0].auditRatio * 10) / 10
     let cardsContainer = Div("cardsContainer")
     body.add(cardsContainer)
-    console.log(data.transaction);
     level(data.level[0].amount);
     expinfo(Math.round((data.xpTransactions.aggregate.sum.amount) / 1000), data.transaction);
     let skills = data.skils[0].transactions
@@ -308,7 +315,6 @@ function level(level) {
     body.add(data1);
 }
 function skillCard(skills) {
-    console.log(skills);
     if (!skills || !skills.length) return;
     let svgHeight = skills.length * 20;
     let svgWidth = skills.length * 30 + 30;
