@@ -20,6 +20,18 @@ body {
     overflow-x: hidden;
 }
 
+.level {
+    background-color: var(--bg-card-clolor);
+    border-radius: 12px;
+    color: var(--text-coller);
+    width: 200px;
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .loginDiv {
     display: flex;
     position: absolute;
@@ -27,12 +39,12 @@ body {
     align-items: center;
     gap: 10px;
     justify-content: center;
-    margin-top: 40vh;
-    margin-left: 25%;
-    width: 40%;
+    top: calc(50% - 100px);
+    left: calc(50% - 200px);
+    width: 400px;
     max-width: 400px;
     min-width: 200px;
-    height: 30vh;
+    height: 200px;
     border-radius: 12px;
     background-color: #3f3f3f2d;
     background-size: cover;
@@ -133,7 +145,7 @@ header {
 
 .expinfo::first-line {
     font-size: 30px;
-    color: #c9a8ff;  
+    color: #c9a8ff;
     font-weight: bold;
 }
 

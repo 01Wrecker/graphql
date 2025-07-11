@@ -199,7 +199,7 @@ async function datageter(login) {
                         }
                      transaction(
                       where: {
-                        type: { _eq: "xp" }
+                        type: { _eq: "xp"  }
                         event: { object: { type: { _eq: "module" } } }
                       }
                     ) {
@@ -207,6 +207,20 @@ async function datageter(login) {
                         name
                       }
                       amount
+                    }
+                    level: transaction(
+                      where: {
+                        _and: [
+                          { type: { _eq: "level" } },
+                          { path: { _like: "%module%" } }
+                        ]
+                      }
+                      order_by: { amount: desc }
+                      limit: 1
+                    ) {
+                      type
+                      amount
+                      path
                     }
                     skils :   user {
                     transactions(
@@ -230,7 +244,7 @@ async function datageter(login) {
         location.reload();
         return
 
-    }
+    }    
     if (dat.data.user[0].campus == null) {
         alert("you are not student")
         let h1 = document.createElement("h1")
@@ -263,16 +277,23 @@ async function datageter(login) {
     let cardsContainer = Div("cardsContainer")
     body.add(cardsContainer)
     console.log(data.transaction);
-    
+    level(data.level[0].amount);
     expinfo(Math.round((data.xpTransactions.aggregate.sum.amount) / 1000), data.transaction);
     auditGraph(auditRatio, done, received, cardsContainer)
     let skills = data.skils[0].transactions
     skillCard(skills);
     body.add(data1);
 }
-function info(userdata) {
-
-    body.add(infoDiv);
+function level(level) {
+    let data1 = Div("level");
+    data1.add(Div("levelTitle", "Level"), Div("levelSubtitle", "Your current level"));
+    let levelDiv = Div("levelDiv");
+    levelDiv.textContent = level;
+    levelDiv.style.fontSize = "2em";
+    levelDiv.style.fontWeight = "bold";
+    levelDiv.style.color = "#fbc02d";
+    data1.add(levelDiv);
+    body.add(data1);
 }
 function skillCard(skills) {
     console.log(skills);
