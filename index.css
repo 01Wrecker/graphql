@@ -1,8 +1,10 @@
 :root {
+    --bg-graph-color:#B8CFCE;
     --bg-clolor: #333446;
     --bg-card-clolor: #7F8CAA;
     --primary-color: #B8CFCE;
     --text-coller: #EAEFEF;
+
     --basic-card-width: 300px;
     --basic-card-height: 200px;
 }
@@ -193,7 +195,7 @@ header {
 }
 
 .audiRatioCard {
-    background-color: var(--bg-card-clolor);
+    background-color: var(--bg-graph-color);
     color: var(--text-coller);
     width: 90%;
     max-width: 400px;
@@ -288,9 +290,8 @@ header {
 }
 
 .skillsholder {
-    background-color: var(--bg-card-clolor);
+    background-color: var(--bg-graph-color);
     padding: 20px;
-    /* margin: 20px auto; */
     border-radius: 12px;
     width: 90%;
     max-width: 600px;

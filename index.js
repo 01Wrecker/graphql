@@ -1,4 +1,3 @@
-
 const Div = (className = "", textContent) => {
     const divElement = document.createElement("div");
     divElement.className = className;
@@ -284,8 +283,8 @@ async function datageter(login) {
     console.log(data.transaction);
     level(data.level[0].amount);
     expinfo(Math.round((data.xpTransactions.aggregate.sum.amount) / 1000), data.transaction);
-    auditGraph(auditRatio, done, received, cardsContainer)
     let skills = data.skils[0].transactions
+    auditGraph(auditRatio, done, received, cardsContainer, skills)
     skillCard(skills);
 }
 function level(level) {
