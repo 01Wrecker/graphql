@@ -190,7 +190,6 @@ header {
     width: 90%;
     max-width: 300px;
     padding: 20px;
-    /* margin: 30px auto; */
 }
 
 .audiRatioCard {
@@ -200,9 +199,6 @@ header {
     max-width: 400px;
     padding: 20px;
     border-radius: 12px;
-    /* font-family: "Segoe UI", sans-serif; */
-    /* box-shadow: 0 4px 10px var(--primary-color); */
-    margin: 20px auto;
 }
 
 .texts {
@@ -225,25 +221,17 @@ header {
     color: #fbc02d;
 }
 
-.Bigtext::after {
-    content: " You can do better!";
-    font-size: 14px;
-    display: block;
-    color: #fbc02d;
-    font-weight: 400;
-    margin-top: -10px;
-}
+
 
 .graphTexts {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
 }
 
 .xp {
     color: #fbc02d;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: capitalize;
 }
 

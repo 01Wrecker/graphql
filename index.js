@@ -13,6 +13,7 @@ const Div = (className = "", textContent) => {
     };
     return divElement;
 };
+let isnotstudent = false;
 const header = document.querySelector("header");
 const logo = document.querySelector(".logo");
 async function dataseter() {
@@ -77,7 +78,19 @@ function loginfarm() {
 loginfarm();
 let userdata
 function profileshow() {
-    if (document.querySelector(".profile") && document.querySelector(".user-info")) {
+    document.querySelector(".picprofile").classList.add("active");
+    profile = Div("profile")
+    let logout = document.createElement("img");
+    logout.src = "/media/logout.svg";
+    logout.className = "logout";
+    logout.onclick = function () {
+        localStorage.clear();
+        location.reload();
+    }
+    
+    let infoDiv = Div("user-info");
+    
+    if (document.querySelector(".profile")) {
         document.querySelector(".profile").remove();
         const picProfileElem = document.querySelector(".picprofile");
         if (picProfileElem) {
@@ -85,17 +98,12 @@ function profileshow() {
         }
         return
     }
-    document.querySelector(".picprofile").classList.add("active");
-    profile = Div("profile")
-    logout = document.createElement("img");
-    logout.src = "/media/logout.svg";
-    logout.className = "logout";
-    logout.onclick = function () {
-        localStorage.removeItem("jwt");
-        location.reload();
+    if (isnotstudent){
+        infoDiv.add(logout)
+        profile.add(infoDiv);
+        header.append(profile);
+        return
     }
-
-    let infoDiv = Div("user-info");
     infoDiv.add(
         Div("user-field", `First Name: ${userdata.firstName || ""}`),
         Div("user-field", `Last Name: ${userdata.lastName || ""}`),
@@ -141,10 +149,7 @@ async function infogeter() {
     }
 
     let login = dat.data.user[0].login
-    // let div = Div("hello")
 
-    /*  let va = `Hello ${dat.data.user[0].firstName} ${dat.data.user[0].lastName}`;
-     div.add(va); */
     header.append(picprofile(login));
     return login;
 }
@@ -244,12 +249,12 @@ async function datageter(login) {
         location.reload();
         return
 
-    }    
+    }
     if (dat.data.user[0].campus == null) {
-        alert("you are not student")
         let h1 = document.createElement("h1")
         h1.textContent = "you are not student"
-        document.body.appendChild(h1)
+        body.add(h1)
+        isnotstudent = true;
         return
     }
     let Userdata = dat.data.user[0].attrs
@@ -282,7 +287,6 @@ async function datageter(login) {
     auditGraph(auditRatio, done, received, cardsContainer)
     let skills = data.skils[0].transactions
     skillCard(skills);
-    body.add(data1);
 }
 function level(level) {
     let data1 = Div("level");
@@ -364,11 +368,11 @@ function expinfo(exp, projects) {
     let div = Div("expinfo");
     div.add("Your XP: " + hh(exp));
     for (let i = projects.length - 1; i >= 0; i--) {
-        if (count >= 4) break;else {
+        if (count >= 4) break; else {
             count++;
             let project = projects[i].project.name;
             let amount = Math.round(projects[i].amount / 1000);
-            div.add( Div("project").add(` Project: ${project}`));
+            div.add(Div("project").add(` Project: ${project}`));
         }
     }
     body.add(div);
@@ -411,10 +415,10 @@ async function auditGraph(auditRatio, done, received, cardsContainer) {
             Div("graph").add(svg),
             Div("nn").add(
                 Div("texts").add(
-                    Div("xp", "done"), Div("name", done + " kb")
+                    Div("xp", "done"), Div("name ", done + "kb")
                 ),
                 Div("texts").add(
-                    Div("xp", "received"), Div("name", received + " kb")
+                    Div("xp", "received"), Div("name ", received + "kb")
                 )
             )
         )
